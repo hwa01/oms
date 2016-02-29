@@ -1,0 +1,222 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<title>oms</title>
+
+ <link href="{{STATIC_URL}}css/application-a07755f5.css" rel="stylesheet" type="text/css" />
+
+<link href="{{STATIC_URL}}css/bootstrap.min.css"
+	rel="stylesheet">
+<script src="{{STATIC_URL}}js/jquery.min.js"></script>
+<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<style>
+body.main {
+	padding: 10px 20px 0px 20px;
+	background-color: #bdc3c7
+}
+
+.navbar-default {
+	background-color: rgba(0, 0, 0, 0)  !important;
+	border-color: rgba(0, 0, 0, 0)  !important
+}
+
+#wrapper {
+	position: absolute;
+	top: 70px;
+	bottom: 0;
+	left: 20px;
+	right: 20px;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	-moz-border-radius-topleft: 15px;
+	-webkit-border-top-left-radius: 15px;
+	border-top-left-radius: 15px;
+	-moz-border-radius-topright: 15px;
+	-webkit-border-top-right-radius: 15px;
+	border-top-right-radius: 15px;
+	-webkit-box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.04);
+	box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.04);
+	overflow: hidden
+}
+
+#content {
+	overflow: auto;
+	margin-top: 51px;
+	background-color: white;
+	padding: 20px;
+	
+}
+
+#tools #breadcrumb {
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	-ms-border-radius: 0;
+	-o-border-radius: 0;
+	border-radius: 0;
+	padding: 15px 20px 15px 20px;
+	border-bottom: 1px solid #dddddd
+}
+
+#navbar .navbar-brand {
+	font-size: 1.8em
+}
+
+.navbar-brand {
+	height: 50px
+}
+
+#tools #breadcrumb .title {
+	font-weight: 800;
+	color: #1abc9c
+}
+
+</style>
+<script>
+$.ajaxSetup({
+  data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+});
+
+
+	$(function(){
+		$("#run").click(function(){
+			
+			var type = $("#type").val();
+			var server = $("#server").val();
+			var branch = $("#branch").val();
+			console.log(type+server+branch);
+			
+			$.ajax({
+				type:"POST",
+				url:"omscore/",
+				data:{"type":type,"server":server,"branch":branch},
+				success:function(result){
+					console.log(result);
+					$("#callback").val(result);
+				
+				
+				}
+			
+			
+			});
+			
+		
+		});
+	
+	});
+	
+	
+</script>
+</head>
+<body class="main page">
+	<!-- Navbar -->
+	<div class="navbar navbar-default" id="navbar">
+		<a class="navbar-brand" href="#"> <i class="icon-beer"></i> OMS </a>
+		<ul class="nav navbar-nav pull-right">
+			<li class="dropdown user"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#"> <strong>hwa</strong> <b
+					class="caret"></b> </a>
+				<ul class="dropdown-menu">
+					<li><a href="/">Sign out</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	<div id="wrapper" style="height:auto">
+		<!-- Sidebar -->
+
+		<!-- Tools -->
+		<div id="tools">
+		<ul class="breadcrumb" id="breadcrumb">
+			<li class="title">Home</li>
+			<li class="title">Tome</li>
+		</ul>
+
+		</div>
+		<!-- Content -->
+		<div id="content">
+			<div class="panel panel-default"
+				style="margin-left:2%;width:50%;float: left">
+				<div class="panel-heading">
+					Options
+					<div class="panel-tools"></div>
+				</div>
+				<div class="panel-body">
+					<form class="form-horizontal" role="form" >
+						<div class="form-group">
+							<label for="firstname" class="col-sm-2 control-label">type</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="type"
+									placeholder="Please enter the type">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="lastname" class="col-sm-2 control-label">server</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="server"
+									placeholder="Please enter the type">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="lastname" class="col-sm-2 control-label">branch</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="branch"
+									placeholder="Please enter the branch">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="lastname" class="col-sm-2 control-label">scriptpath</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="scriptpath"
+									placeholder="Please enter the scriptpath">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="lastname" class="col-sm-2 control-label">foo</label>
+							<div class="col-sm-10">
+								<select class="form-control">
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+									<option>4</option>
+									<option>5</option>
+								</select>
+							</div>
+
+						</div>
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								<button type="button" id="run" class="btn btn-success" style="width:60px">run</button>
+								<button type="button" id="clear" class="btn btn-default"
+									style="margin-left:20px;width:60px">cancel </button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="panel panel-default"
+				style="margin-left:2%;width:45%;height:300px;float: left">
+				<div class="panel-heading">
+					Console
+					<div class="panel-tools"></div>
+				</div>
+				<div class="panel-body">
+					<!-- <p>状态：</p>
+					<textarea style="width:100%;height:230px"></textarea> -->
+					<form role="form">
+						<div class="form-group">
+							<label for="name">status:</label> <label for="name">success</label>
+							<textarea id = "callback" class="form-control" rows="3" style="height:210px"></textarea>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	<!-- Footer -->
+	<!-- Javascripts -->
+	<!-- Google Analytics -->
+
+</body>
+</html>
